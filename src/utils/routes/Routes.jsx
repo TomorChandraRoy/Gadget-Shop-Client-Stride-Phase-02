@@ -7,5 +7,12 @@ export const router = createBrowserRouter([
     {
       path: "/",
       element: <MainLayout/>,
+      children:[
+        {
+          path: "contacts/:contactId",
+          element: <Contact />,
+  
+        }
+      ]
     },
   ]);
