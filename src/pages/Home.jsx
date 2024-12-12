@@ -7,6 +7,7 @@ const Home = () => {
   return (
     <>
         <Banner/>
+        <div className="container mx-auto">
         <div className="my-24">
             <h1 className="mb-16 text-2xl font-semibold text-center">Featured Products</h1>
             <FeaturedProducts/>
@@ -18,6 +19,7 @@ const Home = () => {
         <div className="my-24">
             <h1 className="mb-16 text-2xl font-semibold text-center"> Frequently AsKed Question </h1>
             <Accordion/>
+        </div>
         </div>
     </>
 
