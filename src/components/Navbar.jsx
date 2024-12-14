@@ -1,7 +1,7 @@
 
 const Navbar = () => {
     return (
-        <div className="navbar bg-slate-400">
+        <div className="navbar bg-slate-200">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -32,7 +32,10 @@ const Navbar = () => {
                         <li><a>Item 3</a></li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <div className="">
+                <img className="lg:h-[4rem]" src="https://i.ibb.co.com/rc5SHkH/675d146aed27c4000dd0b7de.png" />
+                </div>
+
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
