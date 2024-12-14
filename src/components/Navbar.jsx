@@ -39,17 +39,17 @@ const Navbar = () => {
 
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1 gap-5">
+                <ul className="menu menu-horizontal px-1 gap-5 text-lg  font-semibold">
                     <li><NavLink to='/'>Home</NavLink></li>
                     <li><NavLink to='/products'>Products</NavLink></li>
                     <li><NavLink to='/about'>About</NavLink></li>
-                    <li><NavLink to='/contect-us'>Contact US</NavLink></li>
+                    <li><NavLink to='/contect-us'>ContactUs</NavLink></li>
                 </ul>
             </div>
             <div className="navbar-end">
-                <div className="flex gap-3 items-center">
-                    <Link to="/sign-up"><button className="btn btn-success text-white">SignUp</button></Link>
-                    <Link to="/sign-in"><button className="btn btn-success text-white">SignIn</button></Link>
+                <div className="flex gap-3 items-center ">
+                    <Link to="/sign-up"><button className="btn  bg-green-500 text-white border-none text-base  font-semibold">SignUp</button></Link>
+                    <Link to="/sign-in"><button className="btn  bg-green-500 text-white border-none text-base font-semibold">SignIn</button></Link>
                 </div>
             </div>
         </div>
