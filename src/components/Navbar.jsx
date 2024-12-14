@@ -47,7 +47,10 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                <div className="flex gap-3 items-center">
+                    <button className="btn btn-success text-white">SignUp</button>
+                    <button className="btn btn-success text-white">SignIn</button>
+                </div>
             </div>
         </div>
     )
