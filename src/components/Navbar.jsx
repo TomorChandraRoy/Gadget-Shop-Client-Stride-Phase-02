@@ -1,4 +1,4 @@
-import { NavLink } from "react-router"
+import { Link, NavLink } from "react-router"
 
 const Navbar = () => {
     return (
@@ -48,8 +48,8 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 <div className="flex gap-3 items-center">
-                    <button className="btn btn-success text-white">SignUp</button>
-                    <button className="btn btn-success text-white">SignIn</button>
+                    <Link to="/sign-up"><button className="btn btn-success text-white">SignUp</button></Link>
+                    <Link to="/sign-in"><button className="btn btn-success text-white">SignIn</button></Link>
                 </div>
             </div>
         </div>

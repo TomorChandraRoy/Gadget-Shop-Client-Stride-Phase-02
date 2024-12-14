@@ -5,6 +5,8 @@ import Home from "../../pages/Home";
 import Aboutus from "../../pages/Aboutus";
 import { Contact } from "../../pages/Contact";
 import Products from "../../pages/Products";
+import SignUp from "../../pages/SignUp";
+import SignIn from "../../pages/SignIn";
 
 
 export const router = createBrowserRouter([
@@ -30,6 +32,16 @@ export const router = createBrowserRouter([
         {
           path: "/contect-us",
           element: <Contact />,
+  
+        },
+        {
+          path: "/sign-up",
+          element: <SignUp />,
+  
+        },
+        {
+          path: "/sign-in",
+          element: <SignIn />,
   
         },
       ]
