@@ -4,7 +4,6 @@ import { Link } from "react-router";
 const SignUp = () => {
     return (
         <div>
-
             <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
                 <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
                     <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
@@ -55,8 +54,8 @@ const SignUp = () => {
                                     </button>
                                 </div>
 
-                                <p className="text-center font-extrabold my-5">Don&rsquo;t have an account? <Link className="text-red-500 hover:underline"
-          to="/sign-in">Sign up</Link></p>
+                                <p className="text-center font-extrabold my-5">Already have an account? <Link className="text-red-500 hover:underline"
+                                    to="/sign-in">Sign In</Link></p>
                                 <div className="mb-12 border-b text-center">
                                     <div
                                         className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
@@ -65,6 +64,9 @@ const SignUp = () => {
                                 </div>
 
                                 <div className="mx-auto max-w-xs">
+                                    <input
+                                        className="w-full px-8 py-4 mb-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                                        type="text" placeholder="Your Name" />
                                     <input
                                         className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                                         type="email" placeholder="Email" />
@@ -85,7 +87,7 @@ const SignUp = () => {
                                     </button>
                                     <div className="flex items-center gap-2 justify-center">
 
-                                         <input type="checkbox" className="checkbox"/> 
+                                        <input type="checkbox" className="checkbox" />
 
                                         <p className="mt-6 text-xs text-gray-600 text-center">
                                             I agree to abide by
