@@ -1,6 +1,9 @@
 import { Link, NavLink } from "react-router"
+import UserDropdown from "./home/UserDropdown"
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
+    const { user } = useAuth();
     return (
         <div className="navbar bg-slate-200">
             <div className="navbar-start">
@@ -34,7 +37,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="">
-                <img className="lg:h-[4rem]" src="https://i.ibb.co.com/rc5SHkH/675d146aed27c4000dd0b7de.png" />
+                <Link to="/"><img className="lg:h-[4rem]" src="https://i.ibb.co.com/rc5SHkH/675d146aed27c4000dd0b7de.png" /></Link>
                 </div>
 
             </div>
@@ -46,12 +49,21 @@ const Navbar = () => {
                     <li><NavLink to='/contect-us'>ContactUs</NavLink></li>
                 </ul>
             </div>
-            <div className="navbar-end">
-                <div className="flex gap-3 items-center ">
-                    <Link to="/sign-up"><button className="btn  bg-green-500 hover:bg-slate-800 text-white border-none text-base  font-semibold">SignUp</button></Link>
-                    <Link to="/sign-in"><button className="btn  bg-green-500 hover:bg-slate-800 text-white border-none text-base font-semibold">SignIn</button></Link>
+
+            {/* userDAta*/}
+            { user ? (
+                <div className="navbar-end ">
+                    <UserDropdown/>
                 </div>
+            )
+            :            <div className="navbar-end">
+            <div className="flex gap-3 items-center ">
+                <Link to="/sign-up"><button className="btn  bg-green-500 hover:bg-slate-800 text-white border-none text-base  font-semibold">SignUp</button></Link>
+                <Link to="/sign-in"><button className="btn  bg-green-500 hover:bg-slate-800 text-white border-none text-base font-semibold">SignIn</button></Link>
             </div>
+        </div>
+        
+        }
         </div>
     )
 }

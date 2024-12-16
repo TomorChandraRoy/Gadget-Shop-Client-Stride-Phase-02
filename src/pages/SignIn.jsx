@@ -1,27 +1,30 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 
 
 const SignIn = () => {
-    
-    const { createAccount } = useAuth();
-    console.log(createAccount);
 
-    const { register, handleSubmit,  formState: { errors }, } = useForm();
+    const { signInAccount } = useAuth();
+    console.log(signInAccount);
+
+    const navigate = useNavigate();
+
+    const { register, handleSubmit, formState: { errors }, } = useForm();
     //  password field show/hide করার জন্য
-        const [showPassword, setShowPassword] = useState(false);
-    
-        const handleShowPassword = () => {
-            setShowPassword(!showPassword);
-        };
+    const [showPassword, setShowPassword] = useState(false);
 
-        const onSubmit = (data) => {
-            console.log(data)
-        }
-    
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const onSubmit = (data) => {
+        signInAccount (data.email, data.password)
+        navigate("/");
+    }
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="min-h-screen bg-gray-100 text-gray-900 flex flex-row-reverse justify-center">
@@ -33,7 +36,7 @@ const SignIn = () => {
                         </div>
                         <div className="mt-12 flex flex-col items-center">
                             <h1 className="text-2xl xl:text-3xl font-extrabold">
-                               Sign In
+                                Sign In
                             </h1>
                             <div className="w-full flex-1 mt-8">
                                 <div className="flex flex-col items-center">
@@ -69,7 +72,7 @@ const SignIn = () => {
                                             </svg>
                                         </div>
                                         <span className="ml-4">
-                                        Sign In with GitHub
+                                            Sign In with GitHub
                                         </span>
                                     </button>
                                 </div>
@@ -88,11 +91,11 @@ const SignIn = () => {
                                     <input  {...register("email", { required: true, })}
                                         className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-green-400 focus:bg-white"
                                         type="email" placeholder="Email" />
-                                        {errors.email && <span className="text-red-600">Email is required</span>}
+                                    {errors.email && <span className="text-red-600">Email is required</span>}
 
                                     <input {...register("password", { required: true, })}
                                         className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-green-400 focus:bg-white mt-5"
-                                         type={showPassword ? "text" : "password"} placeholder="Password" />
+                                        type={showPassword ? "text" : "password"} placeholder="Password" />
 
                                     {/* password show  */}
                                     <span className="relative w-[30px] text-xl flex justify-end -top-8 left-[87%] ">
@@ -109,6 +112,12 @@ const SignIn = () => {
                                         )}
 
                                     </span>
+                                    <a
+                                        href="#"
+                                        className=" text-green-500 hover:text-gray-900 text-end w-full mt-2"
+                                    >
+                                        Forget Password
+                                    </a>
                                     <button
                                         className="mt-5 tracking-wide font-semibold bg-green-500 text-gray-100 w-full py-4 rounded-lg hover:bg-slate-800 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                                         <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" strokeWidth="2"
@@ -121,7 +130,7 @@ const SignIn = () => {
                                             Sign In
                                         </span>
                                     </button>
-                                    <div className="flex items-center gap-2 justify-center">
+                                    {/* <div className="flex items-center gap-2 justify-center">
 
                                         <input type="checkbox" className="checkbox" />
 
@@ -135,7 +144,7 @@ const SignIn = () => {
                                                 Privacy Policy
                                             </a>
                                         </p>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

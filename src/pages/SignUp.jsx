@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -6,14 +6,14 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 const SignUp = () => {
+    const navigate = useNavigate();
     const { createAccount } = useAuth();
-    console.log(createAccount);
+    // console.log(createAccount);
 
     const { register, handleSubmit, watch, formState: { errors }, } = useForm();
 
     //  password field show/hide করার জন্য
     const [showPassword, setShowPassword] = useState(false);
-
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -21,8 +21,23 @@ const SignUp = () => {
     const password = watch("password"); // Password ফিল্ডের মান ট্র্যাক করবে watch diye
     console.log(password);
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const onSubmit = async (data) => {
+        // console.log(data)
+        createAccount(data.email, data.password);
+        navigate("/");
+        // এখানে আপনার API URL দিবেন
+        try {
+            const response = await axios.post('https://your-api-endpoint.com/save-data', data);
+
+            if (response.status === 200) {
+                // সফলভাবে ডাটা সেভ হলে কিছু করতে পারেন, যেমন কনসোল লগ, ইউজারকে ধন্যবাদ জানানো, ইত্যাদি
+                console.log('Data saved successfully:', response.data);
+                navigate("/");
+            }
+        } catch (error) {
+            console.error('Error saving data:', error);
+        }
+
     }
 
 
