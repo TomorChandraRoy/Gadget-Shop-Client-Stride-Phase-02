@@ -99,7 +99,7 @@ const SignUp = () => {
                                         {...register("email", { required: true, })}
                                         className="w-full  px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-green-400 focus:bg-white"
                                         type="email" placeholder="Email" />
-                                    {errors.name && <span className="text-red-600">Email is required</span>}
+                                    {errors.email && <span className="text-red-600">Email is required</span>}
 
                                     {/* Password */}
                                     <input
@@ -144,7 +144,7 @@ const SignUp = () => {
                                         className="w-full px-8  py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-green-400 focus:bg-white mt-5"
                                         type="password" placeholder="Confirm Password" />
 
-                                    {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+                                    {errors.confirmPassword && <p className="text-red-600">{errors.confirmPassword.message}</p>}
 
                                     <button
                                         className="mt-5 tracking-wide font-semibold bg-green-500 text-gray-100 w-full py-4 rounded-lg hover:bg-slate-800 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">

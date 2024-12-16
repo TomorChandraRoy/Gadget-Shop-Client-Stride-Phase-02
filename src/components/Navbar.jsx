@@ -48,8 +48,8 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 <div className="flex gap-3 items-center ">
-                    <Link to="/sign-up"><button className="btn  bg-green-500 text-white border-none text-base  font-semibold">SignUp</button></Link>
-                    <Link to="/sign-in"><button className="btn  bg-green-500 text-white border-none text-base font-semibold">SignIn</button></Link>
+                    <Link to="/sign-up"><button className="btn  bg-green-500 hover:bg-slate-800 text-white border-none text-base  font-semibold">SignUp</button></Link>
+                    <Link to="/sign-in"><button className="btn  bg-green-500 hover:bg-slate-800 text-white border-none text-base font-semibold">SignIn</button></Link>
                 </div>
             </div>
         </div>
