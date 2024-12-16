@@ -1,7 +1,14 @@
+import { useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../authProvider/AuthProvider";
 
 
 const SignUp = () => {
+
+    const auth = useContext(AuthContext);
+    console.log(auth);
+    
+
     return (
         <div>
             <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">

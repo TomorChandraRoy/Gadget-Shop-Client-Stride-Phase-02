@@ -3,12 +3,14 @@ import { createContext, useEffect, useState } from "react"
 import auth from "../utils/firebaseConfig/FirebaseConfig";
 import { GoogleAuthProvider } from "firebase/auth/web-extension";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
 
+// eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
 
     //# লগ ইন করা ব্যবহারকারীর তথ্য এখানে সঞ্চিত রাখার জন্য 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null);    
 
     //reload korle login page jeno na jay
     const [loading, setLoading] = useState(true);
@@ -18,13 +20,13 @@ const AuthProvider = ({ children }) => {
     const googleProvider = new GoogleAuthProvider();
 
     //create with Email and Password
-    const createAccount = () => {
+    const createAccount = ( email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     };
 
     //SignIn with Email and Password
-    const signInAccount = ()=>{
+    const signInAccount = ( email, password)=>{
         setLoading(true);
         return signInWithEmailAndPassword (auth,email,password)
     }
@@ -62,7 +64,7 @@ const AuthProvider = ({ children }) => {
     },[]);
 
 
-    const authInfo = { user, createAccount, signInAccount, logOut, googleSign, updateUserProfile }
+    const authInfo = { user, createAccount, signInAccount, logOut, googleSign,loading }
 
     return (
         <AuthContext.Provider value={authInfo}>
