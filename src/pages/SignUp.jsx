@@ -1,16 +1,33 @@
-import { useContext } from "react";
 import { Link } from "react-router";
-import { AuthContext } from "../authProvider/AuthProvider";
+import useAuth from "../hooks/useAuth";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 const SignUp = () => {
+    const { createAccount } = useAuth();
+    console.log(createAccount);
 
-    const auth = useContext(AuthContext);
-    console.log(auth);
-    
+    const { register, handleSubmit, watch, formState: { errors }, } = useForm();
+
+    //  password field show/hide করার জন্য
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const password = watch("password"); // Password ফিল্ডের মান ট্র্যাক করবে watch diye
+    console.log(password);
+
+    const onSubmit = (data) => {
+        console.log(data)
+    }
+
 
     return (
-        <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
                 <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
                     <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
@@ -61,7 +78,7 @@ const SignUp = () => {
                                     </button>
                                 </div>
 
-                                <p className="text-center font-extrabold my-5">Already have an account? <Link className="text-red-500 hover:underline"
+                                <p className="text-center font-extrabold my-5">Already have an account? <Link className="text-green-500 hover:underline"
                                     to="/sign-in">Sign In</Link></p>
                                 <div className="mb-12 border-b text-center">
                                     <div
@@ -71,17 +88,66 @@ const SignUp = () => {
                                 </div>
 
                                 <div className="mx-auto max-w-xs">
-                                    <input
-                                        className="w-full px-8 py-4 mb-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+
+                                    {/* name */}
+                                    <input {...register("name", { required: true, })}
+                                        className="w-full px-8 py-4 mb-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-green-400 focus:bg-white"
                                         type="text" placeholder="Your Name" />
+
+                                    {/* email */}
                                     <input
-                                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                                        {...register("email", { required: true, })}
+                                        className="w-full  px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-green-400 focus:bg-white"
                                         type="email" placeholder="Email" />
+                                    {errors.name && <span className="text-red-600">Email is required</span>}
+
+                                    {/* Password */}
                                     <input
-                                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                                        type="password" placeholder="Password" />
+                                        {...register("password", {
+                                            required: true, minLength: 6, maxLength: 20,
+                                            pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                                        })}
+
+                                        className="w-full px-8  py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-green-400 focus:bg-white mt-5"
+                                        type={showPassword ? "text" : "password"} placeholder="Password" />
+
+                                    {/* password show  */}
+                                    <span className="relative w-[30px] text-xl flex justify-end -top-8 left-[87%] ">
+                                        {showPassword ? (
+                                            <FaEye
+                                                className="hover:cursor-pointer"
+                                                onClick={handleShowPassword}
+                                            />
+                                        ) : (
+                                            <FaEyeSlash
+                                                className="hover:cursor-pointer"
+                                                onClick={handleShowPassword}
+                                            />
+                                        )}
+                                    </span>
+
+                                    {/* password not vaild then error show */}
+                                    {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
+                                    {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
+                                    {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
+                                    {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
+
+                                    {/* Confirm Password  */}
+                                    <input
+                                        {...register("confirmPassword", {
+                                            required: true,
+                                            validate: (value) =>
+                                                value === password || "Passwords do not match",
+
+                                        })}
+
+                                        className="w-full px-8  py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-green-400 focus:bg-white mt-5"
+                                        type="password" placeholder="Confirm Password" />
+
+                                    {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+
                                     <button
-                                        className="mt-5 tracking-wide font-semibold bg-green-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                                        className="mt-5 tracking-wide font-semibold bg-green-500 text-gray-100 w-full py-4 rounded-lg hover:bg-slate-800 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                                         <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" strokeWidth="2"
                                             strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
@@ -94,19 +160,20 @@ const SignUp = () => {
                                     </button>
                                     <div className="flex items-center gap-2 justify-center">
 
-                                        <input type="checkbox" className="checkbox" />
+                                        <input type="checkbox" {...register("terms", { required: true, })} className="checkbox" />
 
-                                        <p className="mt-6 text-xs text-gray-600 text-center">
+                                        <p className="mt-4 text-xs text-gray-600 text-center">
                                             I agree to abide by
-                                            <a href="#" className="border-b border-gray-500 border-dotted mx-1">
+                                            <a href="#" className="border-b border-gray-500 border-dotted mx-1 text-green-500">
                                                 Terms of Service
                                             </a>
                                             and its
-                                            <a href="#" className="border-b border-gray-500 border-dotted  mx-1 ">
+                                            <a href="#" className="border-b border-gray-500 border-dotted  mx-1 text-green-500 ">
                                                 Privacy Policy
                                             </a>
                                         </p>
                                     </div>
+                                    {errors.terms && (<p className="text-red-500 text-xs mt-1">You must agree to the Terms of Service and Privacy Policy</p>)}
                                 </div>
                             </div>
                         </div>
@@ -118,7 +185,7 @@ const SignUp = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     );
 };
 
