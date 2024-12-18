@@ -32,13 +32,13 @@ const UserDropdown = () => {
                         <div className="flex justify-center items-center space-x-3 cursor-pointer px-3">
                             <div className="w-12 h-12 rounded-full overflow-hidden border-2 dark:border-white border-gray-900">
                                 <img
-                                    src={`${user.photoURL || "/public/user.png"}`}
+                                    src={`${user?.photoURL || "/user.png"}`}
                                     alt=""
                                     className="w-full h-full object-cover"
                                 />
                             </div>
                             <div className="font-semibold dark:text-black text-gray-900 text-lg">
-                                <div className="cursor-pointer">{user.displayName}</div>
+                                <div className="cursor-pointer">{user?.displayName}</div>
                             </div>
                         </div>
 

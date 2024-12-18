@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 const SignIn = () => {
     const navigate = useNavigate();
 
-    const { signInAccount } = useAuth();
+    const { signInAccount,signInWithGoogle } = useAuth();
     // console.log(signInAccount);
 
   
@@ -20,11 +20,17 @@ const SignIn = () => {
         setShowPassword(!showPassword);
     };
 
+   //#signIn method
     const onSubmit = (data) => {
         signInAccount (data.email, data.password)
         navigate("/");
     }
 
+    //# GoogleSignIn button login
+    const handleGoogleSignIn =()=>{
+        signInWithGoogle();
+        navigate("/");
+    }
     return (
         <>
             <div className="min-h-screen bg-gray-100 text-gray-900 flex flex-row-reverse justify-center">
@@ -40,7 +46,7 @@ const SignIn = () => {
                             </h1>
                             <div className="w-full flex-1 mt-8">
                                 <div className="flex flex-col items-center">
-                                    <button
+                                    <button onClick={handleGoogleSignIn}
                                         className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                                         <div className="bg-white p-2 rounded-full">
                                             <svg className="w-4" viewBox="0 0 533.5 544.3">
@@ -151,7 +157,7 @@ const SignIn = () => {
                     </div>
                     <div className="flex-1 bg-indigo-100 text-center hidden lg:flex ">
                         <div className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat "
-                            style={{ backgroundImage: "url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg')" }}>
+                            style={{ backgroundImage: "url('https://i.ibb.co.com/JCCFGqJ/rb-4313.png')" }}>
                         </div>
                     </div>
                 </div>

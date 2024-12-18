@@ -13,7 +13,7 @@ const SignUp = () => {
 
     const { register, handleSubmit, watch, formState: { errors }, } = useForm();
 
-    //  password field show/hide করার জন্য
+    //#  password field show/hide করার জন্য
     const [showPassword, setShowPassword] = useState(false);
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -21,7 +21,7 @@ const SignUp = () => {
     const password = watch("password"); // Password ফিল্ডের মান ট্র্যাক করবে watch diye
     console.log("signup password watch : ",password);
 
-    // createAccount 
+    //# createAccount 
     const onSubmit = async (data) => {
         // console.log(data)
         createAccount(data.email, data.password);
@@ -41,7 +41,7 @@ const SignUp = () => {
 
     }
 
-    // google SIgnup
+    //# google SIgnup
     const handleGoogleSignIn = () =>{
         signInWithGoogle()
         .then(result =>{
