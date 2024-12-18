@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link,  useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -6,9 +6,10 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 const SignUp = () => {
+
     const navigate = useNavigate();
-    const { createAccount } = useAuth();
-    // console.log(createAccount);
+
+    const { createAccount, signInWithGoogle } = useAuth();
 
     const { register, handleSubmit, watch, formState: { errors }, } = useForm();
 
@@ -17,10 +18,10 @@ const SignUp = () => {
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
     };
-
     const password = watch("password"); // Password ফিল্ডের মান ট্র্যাক করবে watch diye
-    console.log(password);
+    console.log("signup password watch : ",password);
 
+    // createAccount 
     const onSubmit = async (data) => {
         // console.log(data)
         createAccount(data.email, data.password);
@@ -31,18 +32,30 @@ const SignUp = () => {
 
             if (response.status === 200) {
                 // সফলভাবে ডাটা সেভ হলে কিছু করতে পারেন, যেমন কনসোল লগ, ইউজারকে ধন্যবাদ জানানো, ইত্যাদি
-                console.log('Data saved successfully:', response.data);
+                console.log('create account Data saved successfully:', response.data);
                 navigate("/");
             }
         } catch (error) {
-            console.error('Error saving data:', error);
+            console.error('Error saving data firebase createAccount error :', error);
         }
 
     }
 
-
+    // google SIgnup
+    const handleGoogleSignIn = () =>{
+        signInWithGoogle()
+        .then(result =>{
+          const googleLogIn =result.user
+          console.log("google user Info : ",googleLogIn);
+          navigate('/')
+          
+        })
+        .catch(error=>{
+          console.log("google user Info error : ",error);
+        })
+      }
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <>
             <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
                 <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
                     <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
@@ -56,9 +69,9 @@ const SignUp = () => {
                             </h1>
                             <div className="w-full flex-1 mt-8">
                                 <div className="flex flex-col items-center">
-                                    <button
+                                    <button onClick={handleGoogleSignIn}
                                         className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
-                                        <div className="bg-white p-2 rounded-full">
+                                        <div className="bg-white p-2 rounded-full" >
                                             <svg className="w-4" viewBox="0 0 533.5 544.3">
                                                 <path
                                                     d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z"
@@ -102,7 +115,7 @@ const SignUp = () => {
                                     </div>
                                 </div>
 
-                                <div className="mx-auto max-w-xs">
+                                <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-xs">
 
                                     {/* name */}
                                     <input {...register("name", { required: true, })}
@@ -189,7 +202,7 @@ const SignUp = () => {
                                         </p>
                                     </div>
                                     {errors.terms && (<p className="text-red-500 text-xs mt-1">You must agree to the Terms of Service and Privacy Policy</p>)}
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -200,7 +213,7 @@ const SignUp = () => {
                     </div>
                 </div>
             </div>
-        </form>
+        </>
     );
 };
 

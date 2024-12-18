@@ -1,7 +1,7 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { createContext, useEffect, useState } from "react"
 import auth from "../utils/firebaseConfig/FirebaseConfig";
-import { GoogleAuthProvider } from "firebase/auth/web-extension";
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
@@ -15,9 +15,6 @@ const AuthProvider = ({ children }) => {
     //reload korle login page jeno na jay
     const [loading, setLoading] = useState(true);
 
-    // Google SignUp/Sign 
-
-    const googleProvider = new GoogleAuthProvider();
 
     //create with Email and Password
     const createAccount = ( email, password) => {
@@ -38,10 +35,14 @@ const AuthProvider = ({ children }) => {
     }
 
     // Google SignUp/Sign 
-    const googleSign = () => {
+
+    const googleProvider = new GoogleAuthProvider();
+
+    const signInWithGoogle = () => {
         setLoading(true);
-        return signInWithPopup(auth, googleProvider);
+        return signInWithPopup(auth, googleProvider)
     }
+
 
     // রিয়েল-টাইম আপডেটের জন্য: লগ ইন বা লগ আউটের সময় সঠিক UI দেখানোর জন্য।
     // Auto Login বাস্তবায়ন করতে: পেজ রিফ্রেশের পরেও ব্যবহারকারী লগ ইন থাকা নিশ্চিত করতে।
@@ -64,7 +65,7 @@ const AuthProvider = ({ children }) => {
     },[]);
 
 
-    const authInfo = { user, createAccount, signInAccount, logOut, googleSign,loading }
+    const authInfo = { user, createAccount, signInAccount, logOut, signInWithGoogle, loading }
 
     return (
         <AuthContext.Provider value={authInfo}>

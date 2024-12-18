@@ -6,16 +6,16 @@ import { useForm } from "react-hook-form";
 
 
 const SignIn = () => {
-
-    const { signInAccount } = useAuth();
-    console.log(signInAccount);
-
     const navigate = useNavigate();
 
-    const { register, handleSubmit, formState: { errors }, } = useForm();
-    //  password field show/hide করার জন্য
-    const [showPassword, setShowPassword] = useState(false);
+    const { signInAccount } = useAuth();
+    // console.log(signInAccount);
 
+  
+    const { register, handleSubmit, formState: { errors }, } = useForm();
+
+    //#  password field show/hide করার জন্য
+    const [showPassword, setShowPassword] = useState(false);
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -26,7 +26,7 @@ const SignIn = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <>
             <div className="min-h-screen bg-gray-100 text-gray-900 flex flex-row-reverse justify-center">
                 <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1 flex-row-reverse">
                     <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
@@ -86,7 +86,7 @@ const SignIn = () => {
                                     </div>
                                 </div>
 
-                                <div className="mx-auto max-w-xs">
+                                <form className="mx-auto max-w-xs" onSubmit={handleSubmit(onSubmit)}>
 
                                     <input  {...register("email", { required: true, })}
                                         className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-green-400 focus:bg-white"
@@ -145,7 +145,7 @@ const SignIn = () => {
                                             </a>
                                         </p>
                                     </div> */}
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -156,7 +156,7 @@ const SignIn = () => {
                     </div>
                 </div>
             </div>
-        </form>
+        </>
     );
 };
 
