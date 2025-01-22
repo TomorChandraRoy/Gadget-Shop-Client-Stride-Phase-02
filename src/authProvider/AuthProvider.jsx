@@ -35,7 +35,6 @@ const AuthProvider = ({ children }) => {
     }
 
     // Google SignUp/Sign 
-
     const googleProvider = new GoogleAuthProvider();
 
     const signInWithGoogle = () => {
@@ -46,7 +45,6 @@ const AuthProvider = ({ children }) => {
 
     //👇 রিয়েল-টাইম আপডেটের জন্য: লগ ইন বা লগ আউটের সময় সঠিক UI দেখানোর জন্য।
     //👇 Auto Login বাস্তবায়ন করতে: পেজ রিফ্রেশের পরেও ব্যবহারকারী লগ ইন থাকা নিশ্চিত করতে।
-
     useEffect (() => {
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {

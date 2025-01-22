@@ -1,8 +1,10 @@
-import { Link,  useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import swal from 'sweetalert';
+// import { updateProfile } from "firebase/auth";
 
 
 const SignUp = () => {
@@ -19,41 +21,73 @@ const SignUp = () => {
         setShowPassword(!showPassword);
     };
     const password = watch("password"); // Password ফিল্ডের মান ট্র্যাক করবে watch diye
-    console.log("signup password watch : ",password);
+    console.log("signup password watch : ", password);
 
     //# createAccount 
-    const onSubmit = async (data) => {
-        // console.log(data)
-        createAccount(data.email, data.password);
-        navigate("/");
+    const onSubmit =async  (data) => {
+        console.log(data);
+        
         // এখানে আপনার API URL দিবেন
         try {
-            const response = await axios.post('https://your-api-endpoint.com/save-data', data);
+           const createData = await createAccount(data.email, data.password);
+           const createlogUser = createData.user
+            console.log(createlogUser);
+            // await updateProfile(createlogUser{
+            //     displayName: name,
+            //     photoURL:photo
+            //   })  
+            
+            navigate("/");
 
-            if (response.status === 200) {
-                // সফলভাবে ডাটা সেভ হলে কিছু করতে পারেন, যেমন কনসোল লগ, ইউজারকে ধন্যবাদ জানানো, ইত্যাদি
-                console.log('create account Data saved successfully:', response.data);
-                navigate("/");
-            }
+            // const response = await axios.post('https://your-api-endpoint.com/save-data', data);
+
+            // if (response.status === 200) {
+            //     // সফলভাবে ডাটা সেভ হলে কিছু করতে পারেন, যেমন কনসোল লগ, ইউজারকে ধন্যবাদ জানানো, ইত্যাদি
+            //     console.log('create account Data saved successfully:', response.data);
+            //     navigate("/");
+            // }
         } catch (error) {
-            console.error('Error saving data firebase createAccount error :', error);
+            if (error.code === "auth/email-already-in-use") {
+                swal("This email is already registered. Please Try another email.");
+              } else {
+                console.error('Error saving data firebase createAccount error :',error);
+              }
         }
 
     }
 
+        //     try {
+        // // createAccount(data.email, data.password)
+        // // .then(Swal.fire({
+        // //     title: "Account Created Successfully",
+        // //     icon: "success",
+        // //     draggable: true
+        // // }),
+        // //     navigate("/"))
+        // // .catch(err => {
+        // //     const errorMessage = err.message.split('/')[1];
+        // //     const formattedMessage = errorMessage.replace(/-/g, ' ').replace(')', ''); // '-' কে ' ' দিয়ে প্রতিস্থাপন এবং ')' সরানো
+        // //     // swal()
+        // //     Swal.fire({
+        // //         icon: "error",
+        // //         title: "Oops...",
+        // //         text: `${formattedMessage}`,
+        // //     });
+        // // });
+
     //# google SIgnup
-    const handleGoogleSignIn = () =>{
+    const handleGoogleSignIn = () => {
         signInWithGoogle()
-        .then(result =>{
-          const googleLogIn =result.user
-          console.log("google user Info : ",googleLogIn);
-          navigate('/')
-          
-        })
-        .catch(error=>{
-          console.log("google user Info error : ",error);
-        })
-      }
+            .then(result => {
+                const googleLogIn = result.user
+                console.log("google user Info : ", googleLogIn);
+                navigate('/')
+
+            })
+            .catch(error => {
+                console.log("google user Info error : ", error);
+            })
+    }
     return (
         <>
             <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -121,6 +155,19 @@ const SignUp = () => {
                                     <input {...register("name", { required: true, })}
                                         className="w-full px-8 py-4 mb-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-green-400 focus:bg-white"
                                         type="text" placeholder="Your Name" />
+
+                                    {/* Role */}
+                                    <select
+                                        {...register("role", { required: true, })}
+                                        defaultValue="User" 
+                                        className="w-full mb-5 px-8 py-4 font-medium text-gray-500 text-sm rounded-lg  bg-gray-100 border border-gray-200  focus:outline-none focus:border-green-400 focus:bg-white"
+                                        >
+                                        <option disabled className="font-medium text-gray-500 text-sm ">Our Role</option>
+                                        <option className="font-medium text-gray-500 text-sm " value="Admin">Admin</option>
+                                        <option className="font-medium text-gray-500 text-sm " value="Seller">Seller</option>
+                                        <option className="font-medium text-gray-500 text-sm " value="User">User</option>
+
+                                    </select>
 
                                     {/* email */}
                                     <input

@@ -7,7 +7,8 @@ import { useForm } from "react-hook-form";
 
 const SignIn = () => {
     const navigate = useNavigate();
-
+    
+    //#useAuth
     const { signInAccount,signInWithGoogle } = useAuth();
     // console.log(signInAccount);
 

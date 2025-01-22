@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 const UserDropdown = () => {
 
     const { user, logOut } = useAuth();
+    console.log(user);
+    
 
     const [open, setOpen] = useState(false);
 
@@ -43,7 +45,7 @@ const UserDropdown = () => {
                         </div>
 
                         {open && (
-                            <div className="absolute w-[13rem] px-5 py-3 dark:bg-gray-800 bg-white rounded-lg shadow border dark:border-transparent mt-5">
+                            <div className="absolute w-[11rem] px-5 py-3 dark:bg-gray-800 bg-white rounded-lg shadow border dark:border-transparent mt-5">
                                 <ul className="space-y-3 dark:text-white">
                                     <li className="font-medium">
                                         <a
